@@ -94,16 +94,27 @@ export default function RegisterForm() {
               </div>
             </div>
             <div>
-              <label className="text-sm text-[#94a3b8] mb-1.5 block">Profile Image {!IMGBB_API_KEY && <span className="text-[#64748b]">(URL)</span>}</label>
+              <label className="text-sm text-[#94a3b8] mb-1.5 block flex items-center gap-1.5"><ImageIcon size={14} /> Profile Image</label>
               {IMGBB_API_KEY ? (
-                <div className="relative">
-                  <input type="file" accept="image/*" onChange={handleImageUpload} className="input-field" disabled={uploading} />
-                  {uploading && <span className="text-xs text-[#6366f1]">Uploading...</span>}
+                <div className="flex items-center gap-3">
+                  <div className="relative flex-1">
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748b] pointer-events-none">
+                      <ImageIcon size={18} />
+                    </div>
+                    <label className={`input-field flex items-center gap-2 pl-10 cursor-pointer ${uploading ? 'opacity-60' : ''}`}>
+                      <span className="text-sm text-[#64748b]">{form.image ? 'Change image' : 'Choose a file'}</span>
+                      <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" disabled={uploading} />
+                    </label>
+                  </div>
+                  {form.image && (
+                    <img src={form.image} alt="Preview" className="w-10 h-10 rounded-lg object-cover border border-[#334155]" />
+                  )}
+                  {uploading && <span className="text-xs text-[#6366f1] whitespace-nowrap">Uploading...</span>}
                 </div>
               ) : (
                 <div className="relative">
                   <ImageIcon size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748b]" />
-                  <input type="text" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} className="input-field pl-10" placeholder="https://example.com/avatar.jpg" />
+                  <input type="url" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} className="input-field pl-10" placeholder="https://example.com/avatar.jpg" />
                 </div>
               )}
             </div>
