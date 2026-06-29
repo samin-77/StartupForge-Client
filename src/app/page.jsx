@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Rocket, Users, Zap, Shield, Search, Briefcase, TrendingUp } from "lucide-react";
+import { ArrowRight, Rocket, Users, Zap, Shield, Search, Briefcase, TrendingUp, MapPin, Clock, GraduationCap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { startupAPI, opportunityAPI } from "@/lib/api";
-import { Startup, Opportunity } from "@/types";
 
 export default function Home() {
   const [featuredStartups, setFeaturedStartups] = useState([]);
@@ -101,44 +100,73 @@ export default function Home() {
           className="flex items-center justify-between mb-10"
         >
           <div>
-            <h2 className="text-3xl font-bold">Featured Startups</h2>
-            <p className="text-[#94a3b8] mt-2">Discover innovative startups looking for team members</p>
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#6366f1]">Discover</span>
+            <h2 className="text-3xl font-bold mt-1">Featured Startups</h2>
+            <p className="text-[#94a3b8] mt-2">Innovative startups looking for talented collaborators</p>
           </div>
-          <Link href="/browse-startups" className="btn-secondary text-sm hidden sm:flex">
-            View All <ArrowRight size={16} className="ml-1" />
+          <Link href="/browse-startups" className="btn-secondary text-sm hidden sm:flex items-center gap-1.5">
+            View All <ArrowRight size={16} />
           </Link>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredStartups.map((startup, i) => (
-            <motion.div
-              key={startup._id}
-              custom={i}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              className="card p-6"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center text-white text-xl font-bold">
-                  {startup.startup_name?.charAt(0)}
+            <Link key={startup._id} href={`/startup/${startup._id}`}>
+              <motion.div
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                className="card overflow-hidden group cursor-pointer hover:border-[#6366f1]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#6366f1]/5"
+              >
+                <div className="relative h-36 bg-gradient-to-br from-[#6366f1]/20 via-[#1e293b] to-[#0ea5e9]/20 overflow-hidden">
+                  {startup.logo ? (
+                    <img src={startup.logo} alt={startup.startup_name} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="flex items-center justify-center h-full">
+                      <div className="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-[#6366f1]/20">
+                        {startup.startup_name?.charAt(0)}
+                      </div>
+                    </div>
+                  )}
+                  <div className="absolute top-3 right-3">
+                    <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-[#6366f1]/20 text-[#a5b4fc] border border-[#6366f1]/30 backdrop-blur-sm">
+                      {startup.industry}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-lg">{startup.startup_name}</h3>
-                  <p className="text-sm text-[#94a3b8]">{startup.industry}</p>
+                <div className="p-5">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-bold text-lg group-hover:text-[#6366f1] transition-colors">{startup.startup_name}</h3>
+                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#334155] text-[#94a3b8] font-medium">{startup.funding_stage}</span>
+                  </div>
+                  <p className="text-sm text-[#94a3b8] leading-relaxed line-clamp-2 mb-4">{startup.description}</p>
+                  <div className="flex items-center justify-between pt-3 border-t border-[#334155]">
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={`https://i.pravatar.cc/60?u=${startup.founder_email}`}
+                        alt={startup.founder_name}
+                        className="w-7 h-7 rounded-full"
+                      />
+                      <span className="text-xs text-[#94a3b8]">{startup.founder_name}</span>
+                    </div>
+                    <span className="text-xs flex items-center gap-1 text-[#64748b]">
+                      <Users size={12} /> {startup.team_size_needed} needed
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <p className="text-sm text-[#94a3b8] mb-4 line-clamp-2">{startup.description}</p>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[#6366f1]">by {startup.founder_name}</span>
-                <span className="text-[#94a3b8]">Team: {startup.team_size_needed}</span>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
           {featuredStartups.length === 0 && (
-            <p className="text-[#94a3b8] col-span-3 text-center py-10">No startups yet</p>
+            <div className="col-span-3 text-center py-20">
+              <div className="w-16 h-16 rounded-2xl bg-[#1e293b] flex items-center justify-center mx-auto mb-4">
+                <Rocket size={28} className="text-[#334155]" />
+              </div>
+              <p className="text-[#64748b]">No featured startups yet</p>
+            </div>
           )}
         </div>
-        <div className="text-center mt-6 sm:hidden">
+        <div className="text-center mt-8 sm:hidden">
           <Link href="/browse-startups" className="btn-secondary text-sm">View All Startups</Link>
         </div>
       </section>
@@ -152,50 +180,73 @@ export default function Home() {
           className="flex items-center justify-between mb-10"
         >
           <div>
-            <h2 className="text-3xl font-bold">Featured Opportunities</h2>
-            <p className="text-[#94a3b8] mt-2">Latest openings from innovative startups</p>
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#6366f1]">Latest Roles</span>
+            <h2 className="text-3xl font-bold mt-1">Featured Opportunities</h2>
+            <p className="text-[#94a3b8] mt-2">Top openings from innovative startups</p>
           </div>
-          <Link href="/opportunities" className="btn-secondary text-sm hidden sm:flex">
-            View All <ArrowRight size={16} className="ml-1" />
+          <Link href="/opportunities" className="btn-secondary text-sm hidden sm:flex items-center gap-1.5">
+            View All <ArrowRight size={16} />
           </Link>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredOpportunities.map((opp, i) => (
-            <motion.div
-              key={opp._id}
-              custom={i}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              className="card p-6"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center text-white text-sm font-bold">
-                  {opp.role_title?.charAt(0)}
+            <Link key={opp._id} href={`/opportunity/${opp._id}`}>
+              <motion.div
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                className="card p-5 group cursor-pointer hover:border-[#6366f1]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#6366f1]/5"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-xl gradient-bg flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-[#6366f1]/10">
+                      {opp.role_title?.charAt(0)}
+                    </div>
+                    <div>
+                      <h3 className="font-semibold group-hover:text-[#6366f1] transition-colors">{opp.role_title}</h3>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <img
+                          src={`https://i.pravatar.cc/40?u=${opp.startup_name}`}
+                          alt={opp.startup_name}
+                          className="w-4 h-4 rounded-full"
+                        />
+                        <p className="text-xs text-[#94a3b8]">{opp.startup_name}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#6366f1]/10 text-[#a5b4fc] border border-[#6366f1]/20 font-medium">{opp.industry}</span>
                 </div>
-                <div>
-                  <h3 className="font-semibold">{opp.role_title}</h3>
-                  <p className="text-xs text-[#94a3b8]">{opp.startup_name}</p>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {opp.required_skills?.slice(0, 4).map((skill) => (
+                    <span key={skill} className="px-2 py-0.5 text-[11px] rounded-md bg-[#1e293b] text-[#94a3b8] border border-[#334155]">
+                      {skill}
+                    </span>
+                  ))}
+                  {opp.required_skills?.length > 4 && (
+                    <span className="px-2 py-0.5 text-[11px] rounded-md bg-[#1e293b] text-[#64748b] border border-[#334155]">+{opp.required_skills.length - 4}</span>
+                  )}
                 </div>
-              </div>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {opp.required_skills?.slice(0, 3).map((skill) => (
-                  <span key={skill} className="px-2 py-1 text-xs rounded-md bg-[#6366f1]/10 text-[#6366f1] border border-[#6366f1]/20">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-              <div className="flex items-center justify-between text-xs text-[#94a3b8]">
-                <span className="capitalize">{opp.work_type}</span>
-                <span>{new Date(opp.deadline).toLocaleDateString()}</span>
-              </div>
-            </motion.div>
+                <div className="flex items-center justify-between text-xs pt-3 border-t border-[#334155]">
+                  <div className="flex items-center gap-3 text-[#94a3b8]">
+                    <span className="flex items-center gap-1 capitalize"><MapPin size={12} /> {opp.work_type}</span>
+                    <span className="flex items-center gap-1"><Clock size={12} /> {new Date(opp.deadline).toLocaleDateString()}</span>
+                  </div>
+                  <span className="flex items-center gap-1 text-[#64748b] capitalize"><GraduationCap size={12} /> {opp.commitment_level}</span>
+                </div>
+              </motion.div>
+            </Link>
           ))}
           {featuredOpportunities.length === 0 && (
-            <p className="text-[#94a3b8] col-span-3 text-center py-10">No opportunities yet</p>
+            <div className="col-span-3 text-center py-20">
+              <div className="w-16 h-16 rounded-2xl bg-[#1e293b] flex items-center justify-center mx-auto mb-4">
+                <Briefcase size={28} className="text-[#334155]" />
+              </div>
+              <p className="text-[#64748b]">No featured opportunities yet</p>
+            </div>
           )}
         </div>
-        <div className="text-center mt-6 sm:hidden">
+        <div className="text-center mt-8 sm:hidden">
           <Link href="/opportunities" className="btn-secondary text-sm">View All Opportunities</Link>
         </div>
       </section>
