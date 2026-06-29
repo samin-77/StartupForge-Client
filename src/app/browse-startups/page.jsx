@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { startupAPI } from "@/lib/api";
-import { Startup } from "@/types";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Search, ArrowRight, Building2, Users } from "lucide-react";

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { opportunityAPI, applicationAPI } from "@/lib/api";
-import { Opportunity } from "@/types";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { motion } from "framer-motion";

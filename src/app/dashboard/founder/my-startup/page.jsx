@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { startupAPI } from "@/lib/api";
-import { Startup } from "@/types";
 import { motion } from "framer-motion";
 import { Plus, Edit2, Trash2, Save, X } from "lucide-react";
 import toast from "react-hot-toast";

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { startupAPI, opportunityAPI } from "@/lib/api";
-import { Startup, Opportunity } from "@/types";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, Building2, Users, Calendar, MapPin, Clock } from "lucide-react";

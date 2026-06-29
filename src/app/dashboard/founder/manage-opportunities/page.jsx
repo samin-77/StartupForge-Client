@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { opportunityAPI } from "@/lib/api";
-import { Opportunity } from "@/types";
 import { motion } from "framer-motion";
 import { Edit2, Trash2, Save, X, Plus } from "lucide-react";
 import toast from "react-hot-toast";

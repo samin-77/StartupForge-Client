@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { applicationAPI } from "@/lib/api";
-import { Application } from "@/types";
 import { motion } from "framer-motion";
 import { CheckCircle, XCircle, Clock, ExternalLink } from "lucide-react";
 

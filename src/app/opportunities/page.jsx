@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { opportunityAPI } from "@/lib/api";
-import { Opportunity } from "@/types";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Search, ArrowRight, Briefcase, MapPin, Clock, Filter } from "lucide-react";

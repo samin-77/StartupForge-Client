@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { adminAPI } from "@/lib/api";
-import { Payment } from "@/types";
 import { motion } from "framer-motion";
 
 export default function Transactions() {
