@@ -14,6 +14,7 @@ export default function CollaboratorBrowseOpportunities() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [workType, setWorkType] = useState("");
+  const [industry, setIndustry] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [applying, setApplying] = useState(null);
@@ -27,6 +28,7 @@ export default function CollaboratorBrowseOpportunities() {
       const params = { page, limit: 6 };
       if (search) params.search = search;
       if (workType) params.work_type = workType;
+      if (industry) params.industry = industry;
       const res = await opportunityAPI.getAll(params);
       setOpportunities(res.opportunities || []);
       setTotalPages(res.totalPages || 1);
@@ -37,7 +39,7 @@ export default function CollaboratorBrowseOpportunities() {
     }
   };
 
-  useEffect(() => { fetchOpportunities(); }, [page, workType]);
+  useEffect(() => { fetchOpportunities(); }, [page, workType, industry]);
 
   const handleSearch = (e) => { e.preventDefault(); setPage(1); fetchOpportunities(); };
 
@@ -65,9 +67,13 @@ export default function CollaboratorBrowseOpportunities() {
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748b]" />
           <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by role or skills..." className="input-field pl-10" />
         </form>
-        <select value={workType} onChange={(e) => { setWorkType(e.target.value); setPage(1); }} className="input-field md:w-40">
+        <select value={workType} onChange={(e) => { setWorkType(e.target.value); setPage(1); }} className="input-field md:w-36">
           <option value="">All Types</option>
           {["remote", "onsite", "hybrid"].map((wt) => (<option key={wt} value={wt} className="capitalize">{wt}</option>))}
+        </select>
+        <select value={industry} onChange={(e) => { setIndustry(e.target.value); setPage(1); }} className="input-field md:w-44">
+          <option value="">All Industries</option>
+          {["Technology", "Healthcare", "Finance", "Education", "E-commerce", "AI/ML", "Blockchain", "Sustainability", "Design", "Marketing"].map((ind) => (<option key={ind} value={ind}>{ind}</option>))}
         </select>
       </div>
 
