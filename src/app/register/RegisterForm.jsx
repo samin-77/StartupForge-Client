@@ -125,29 +125,31 @@ export default function RegisterForm() {
             </div>
 
             <div className="space-y-3">
-              <div className="relative group">
-                <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748b] group-focus-within:text-[#6366f1] transition-colors" />
-                <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="input-field pl-10 py-2.5 text-sm bg-[#0f172a] border-[#1e293b] focus:border-[#6366f1]" placeholder="Full name" required />
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-lg bg-[#1e293b] flex items-center justify-center shrink-0"><User size={16} className="text-[#64748b]" /></div>
+                <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="input-field py-2.5 text-sm bg-[#0f172a] border-[#1e293b] focus:border-[#6366f1]" placeholder="Full name" required />
               </div>
-              <div className="relative group">
-                <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748b] group-focus-within:text-[#6366f1] transition-colors" />
-                <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="input-field pl-10 py-2.5 text-sm bg-[#0f172a] border-[#1e293b] focus:border-[#6366f1]" placeholder="Email address" required />
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-lg bg-[#1e293b] flex items-center justify-center shrink-0"><Mail size={16} className="text-[#64748b]" /></div>
+                <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="input-field py-2.5 text-sm bg-[#0f172a] border-[#1e293b] focus:border-[#6366f1]" placeholder="Email address" required />
               </div>
-              <div className="relative group">
-                <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748b] group-focus-within:text-[#6366f1] transition-colors" />
-                <input type={showPassword ? "text" : "password"} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className="input-field pl-10 pr-10 py-2.5 text-sm bg-[#0f172a] border-[#1e293b] focus:border-[#6366f1]" placeholder="Password" required />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#64748b] hover:text-[#94a3b8] transition-colors">
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-lg bg-[#1e293b] flex items-center justify-center shrink-0"><Lock size={16} className="text-[#64748b]" /></div>
+                <div className="relative flex-1">
+                  <input type={showPassword ? "text" : "password"} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className="input-field py-2.5 text-sm bg-[#0f172a] border-[#1e293b] focus:border-[#6366f1] w-full pr-10" placeholder="Password" required />
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#64748b] hover:text-[#94a3b8] transition-colors">
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
               </div>
-              <p className="text-[10px] text-[#64748b] mt-0.5">Min 6 characters, 1 uppercase & 1 lowercase letter</p>
+              <p className="text-[10px] text-[#64748b] ml-11">Min 6 characters, 1 uppercase & 1 lowercase letter</p>
             </div>
 
             <div>
               <label className="text-xs font-medium text-[#94a3b8] tracking-wide uppercase mb-2 block flex items-center gap-1.5"><ImageIcon size={12} /> Profile Image</label>
               {IMGBB_API_KEY ? (
                 <div className="flex items-center gap-3">
-                  <div className="relative flex-1">
+                  <div className="flex-1">
                     <label className="flex items-center gap-2.5 input-field py-2.5 cursor-pointer bg-[#0f172a] border-[#1e293b] border-dashed hover:border-[#6366f1]/50 transition-colors">
                       <div className="w-7 h-7 rounded-lg bg-[#6366f1]/10 flex items-center justify-center">
                         <Upload size={14} className="text-[#6366f1]" />
@@ -160,9 +162,9 @@ export default function RegisterForm() {
                   {uploading && <span className="text-xs text-[#6366f1]">Uploading...</span>}
                 </div>
               ) : (
-                <div className="relative group">
-                  <ImageIcon size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748b] group-focus-within:text-[#6366f1] transition-colors" />
-                  <input type="url" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} className="input-field pl-10 py-2.5 text-sm bg-[#0f172a] border-[#1e293b] focus:border-[#6366f1]" placeholder="https://example.com/avatar.jpg" />
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-lg bg-[#1e293b] flex items-center justify-center shrink-0"><ImageIcon size={16} className="text-[#64748b]" /></div>
+                  <input type="url" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} className="input-field py-2.5 text-sm bg-[#0f172a] border-[#1e293b] focus:border-[#6366f1]" placeholder="https://example.com/avatar.jpg" />
                 </div>
               )}
             </div>
