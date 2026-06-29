@@ -109,8 +109,8 @@ export default function OpportunitiesPage() {
                 className="card p-6 flex flex-col"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center text-white text-lg font-bold">
-                    {opp.role_title?.charAt(0)}
+                  <div className="w-12 h-12 rounded-xl overflow-hidden">
+                    <img src={`https://i.pravatar.cc/80?u=${opp.startup_name}`} alt={opp.startup_name} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold truncate">{opp.role_title}</h3>

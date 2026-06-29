@@ -190,9 +190,13 @@ export default function MyStartup() {
         ) : (
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white text-2xl font-bold">
-                {startup.startup_name?.charAt(0)}
-              </div>
+              {startup.logo ? (
+                <img src={startup.logo} alt={startup.startup_name} className="w-16 h-16 rounded-2xl object-cover" />
+              ) : (
+                <div className="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white text-2xl font-bold">
+                  {startup.startup_name?.charAt(0)}
+                </div>
+              )}
               <div>
                 <h2 className="text-xl font-bold">{startup.startup_name}</h2>
                 <p className="text-[#6366f1]">{startup.industry}</p>

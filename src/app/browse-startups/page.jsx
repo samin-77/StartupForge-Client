@@ -86,9 +86,13 @@ export default function BrowseStartups() {
                 className="card p-6 flex flex-col"
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center text-white text-xl font-bold">
-                    {startup.startup_name?.charAt(0)}
-                  </div>
+                  {startup.logo ? (
+                    <img src={startup.logo} alt={startup.startup_name} className="w-14 h-14 rounded-xl object-cover" />
+                  ) : (
+                    <div className="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center text-white text-xl font-bold">
+                      {startup.startup_name?.charAt(0)}
+                    </div>
+                  )}
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold truncate">{startup.startup_name}</h3>
                     <p className="text-sm text-[#94a3b8]">{startup.industry}</p>

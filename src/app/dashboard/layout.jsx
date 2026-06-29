@@ -60,9 +60,13 @@ export default function DashboardLayout({ children }) {
       <aside className={`fixed lg:sticky top-16 lg:top-16 left-0 z-50 h-[calc(100vh-4rem)] w-64 bg-[#1e293b] border-r border-[#334155] transform transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="p-4 border-b border-[#334155]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white text-sm font-bold">
-              {user.name?.charAt(0).toUpperCase()}
-            </div>
+            {user.image ? (
+              <img src={user.image} alt={user.name} className="w-10 h-10 rounded-full object-cover" />
+            ) : (
+              <div className="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white text-sm font-bold">
+                {user.name?.charAt(0).toUpperCase()}
+              </div>
+            )}
             <div className="min-w-0">
               <p className="text-sm font-semibold truncate">{user.name}</p>
               <p className="text-xs text-[#94a3b8] capitalize">{user.role}</p>

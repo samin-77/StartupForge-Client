@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { Menu, X, ChevronDown, LogOut, LayoutDashboard, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const { user, logout, loading } = useAuth();
@@ -21,12 +22,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-[#0f172a]/80 backdrop-blur-xl border-b border-[#334155]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center text-white font-bold text-sm">
-              SF
-            </div>
-            <span className="text-xl font-bold gradient-text">StartupForge</span>
-          </Link>
+          <Logo size="md" />
 
           <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
@@ -47,9 +43,13 @@ export default function Navbar() {
                       onClick={() => setDropdownOpen(!dropdownOpen)}
                       className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-[#1e293b] transition-colors"
                     >
-                      <div className="w-8 h-8 rounded-full gradient-bg flex items-center justify-center text-white text-xs font-bold">
-                        {user.name?.charAt(0).toUpperCase()}
-                      </div>
+                      {user.image ? (
+                        <img src={user.image} alt={user.name} className="w-8 h-8 rounded-full object-cover" />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full gradient-bg flex items-center justify-center text-white text-xs font-bold">
+                          {user.name?.charAt(0).toUpperCase()}
+                        </div>
+                      )}
                       <span className="text-sm text-white">{user.name}</span>
                       <ChevronDown size={14} className="text-[#94a3b8]" />
                     </button>

@@ -31,8 +31,14 @@ export default function StartupDetails() {
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="card p-8">
         <div className="flex items-start gap-6 mb-6">
-          <div className="w-20 h-20 rounded-2xl gradient-bg flex items-center justify-center text-white text-3xl font-bold flex-shrink-0">
-            {startup.startup_name?.charAt(0)}
+          <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0">
+            {startup.logo ? (
+              <img src={startup.logo} alt={startup.startup_name} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full gradient-bg flex items-center justify-center text-white text-3xl font-bold">
+                {startup.startup_name?.charAt(0)}
+              </div>
+            )}
           </div>
           <div className="flex-1">
             <h1 className="text-3xl font-bold mb-2">{startup.startup_name}</h1>

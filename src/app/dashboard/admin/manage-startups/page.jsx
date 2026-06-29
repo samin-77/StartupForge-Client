@@ -71,9 +71,13 @@ export default function ManageStartups() {
               >
                 <td className="p-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center text-white text-xs font-bold">
-                      {s.startup_name?.charAt(0)}
-                    </div>
+                    {s.logo ? (
+                      <img src={s.logo} alt={s.startup_name} className="w-8 h-8 rounded-lg object-cover" />
+                    ) : (
+                      <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center text-white text-xs font-bold">
+                        {s.startup_name?.charAt(0)}
+                      </div>
+                    )}
                     <span className="font-medium">{s.startup_name}</span>
                   </div>
                 </td>

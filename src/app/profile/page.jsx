@@ -81,9 +81,15 @@ function ProfileContent() {
 
         <div className="card p-8">
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-16 h-16 rounded-full gradient-bg flex items-center justify-center text-white text-2xl font-bold">
-              {form.name?.charAt(0).toUpperCase() || user?.name?.charAt(0).toUpperCase()}
-            </div>
+            {form.image ? (
+              <img src={form.image} alt={form.name || user?.name} className="w-16 h-16 rounded-full object-cover" />
+            ) : user?.image ? (
+              <img src={user.image} alt={user.name} className="w-16 h-16 rounded-full object-cover" />
+            ) : (
+              <div className="w-16 h-16 rounded-full gradient-bg flex items-center justify-center text-white text-2xl font-bold">
+                {form.name?.charAt(0).toUpperCase() || user?.name?.charAt(0).toUpperCase()}
+              </div>
+            )}
             <div>
               <h2 className="text-lg font-semibold">{form.name || user?.name}</h2>
               <p className="text-sm text-[#94a3b8] capitalize">{user?.role}</p>

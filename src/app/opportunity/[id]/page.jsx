@@ -67,8 +67,8 @@ export default function OpportunityDetail() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="lg:col-span-2">
           <div className="card p-8">
             <div className="flex items-start gap-4 mb-6">
-              <div className="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
-                {opportunity.role_title?.charAt(0)}
+              <div className="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0">
+                <img src={`https://i.pravatar.cc/80?u=${opportunity.startup_name}`} alt={opportunity.startup_name} className="w-full h-full object-cover" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold mb-1">{opportunity.role_title}</h1>
