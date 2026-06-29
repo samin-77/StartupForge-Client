@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { adminAPI } from "@/lib/api";
-import { User } from "@/types";
 import { motion } from "framer-motion";
 import { Shield, ShieldOff } from "lucide-react";
 import toast from "react-hot-toast";
@@ -61,9 +60,13 @@ export default function ManageUsers() {
               >
                 <td className="p-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full gradient-bg flex items-center justify-center text-white text-xs font-bold">
-                      {user.name?.charAt(0).toUpperCase()}
-                    </div>
+                    {user.image ? (
+                      <img src={user.image} alt={user.name} className="w-8 h-8 rounded-full object-cover" />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full gradient-bg flex items-center justify-center text-white text-xs font-bold">
+                        {user.name?.charAt(0).toUpperCase()}
+                      </div>
+                    )}
                     <span className="font-medium">{user.name}</span>
                   </div>
                 </td>
