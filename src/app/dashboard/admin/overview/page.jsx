@@ -17,7 +17,7 @@ export default function AdminOverview() {
     { icon: Users, label: "Total Users", value: stats.totalUsers, color: "#6366f1" },
     { icon: Building2, label: "Total Startups", value: stats.totalStartups, color: "#0ea5e9" },
     { icon: Briefcase, label: "Total Opportunities", value: stats.totalOpportunities, color: "#22c55e" },
-    { icon: DollarSign, label: "Total Revenue", value: `$${stats.totalRevenue}`, color: "#f59e0b" },
+    { icon: DollarSign, label: "Total Revenue", value: `$${Number(stats.totalRevenue).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, color: "#f59e0b" },
   ];
 
   return (
