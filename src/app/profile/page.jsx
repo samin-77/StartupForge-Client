@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { userAPI } from "@/lib/api";
 import { motion } from "framer-motion";
-import { Save, User as UserIcon, Mail, BookOpen, Heart } from "lucide-react";
+import { Save, User as UserIcon, Mail, BookOpen, Heart, Image as ImageIcon, Upload } from "lucide-react";
 import toast from "react-hot-toast";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Loading from "@/components/ui/Loading";
@@ -15,6 +15,7 @@ function ProfileContent() {
   const { user, refetchUser } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({ name: "", image: "", skills: "", bio: "" });
 
   useEffect(() => {
@@ -29,6 +30,30 @@ function ProfileContent() {
       }
     }).catch(() => {}).finally(() => setLoading(false));
   }, []);
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!IMGBB_API_KEY) { toast.error("Image upload requires imgbb API key"); return; }
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success) {
+        setForm((prev) => ({ ...prev, image: data.data.url }));
+        toast.success("Image uploaded!");
+      } else {
+        toast.error("Image upload failed");
+      }
+    } catch {
+      toast.error("Image upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,6 +98,20 @@ function ProfileContent() {
             <div>
               <label className="text-sm text-[#94a3b8] mb-1 block flex items-center gap-1"><Mail size={14} /> Email</label>
               <input type="email" value={user?.email || ""} className="input-field" disabled />
+            </div>
+            <div>
+              <label className="text-sm text-[#94a3b8] mb-1 block flex items-center gap-1"><ImageIcon size={14} /> Profile Image</label>
+              {form.image && (
+                <img src={form.image} alt="Preview" className="w-20 h-20 rounded-full object-cover mb-2 border-2 border-[#334155]" />
+              )}
+              {IMGBB_API_KEY ? (
+                <div className="relative">
+                  <input type="file" accept="image/*" onChange={handleImageUpload} className="input-field" disabled={uploading} />
+                  {uploading && <span className="text-xs text-[#6366f1] flex items-center gap-1 mt-1"><Upload size={12} /> Uploading...</span>}
+                </div>
+              ) : (
+                <input type="text" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} className="input-field" placeholder="https://example.com/avatar.jpg" />
+              )}
             </div>
             <div>
               <label className="text-sm text-[#94a3b8] mb-1 block flex items-center gap-1"><Heart size={14} /> Skills (comma separated)</label>
