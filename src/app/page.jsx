@@ -200,6 +200,45 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Success Stories */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl font-bold">Success Stories</h2>
+          <p className="text-[#94a3b8] mt-2">Real teams, real results from our community</p>
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { quote: "StartupForge connected me with our CTO within 2 weeks. We've since raised a $3M seed round and scaled to 15 people.", name: "Mia Zhang", role: "Founder, Aethon Labs", img: "https://i.pravatar.cc/100?img=47" },
+            { quote: "I left my corporate job to join a startup I found here. Best career decision I've ever made — shipped a product used by 200k people.", name: "Carlos Mendez", role: "Lead Engineer, PulseAI", img: "https://i.pravatar.cc/100?img=12" },
+            { quote: "We built our entire design team through StartupForge. The quality of collaborators here is genuinely unmatched.", name: "Aisha Brooks", role: "CEO, TerraForm", img: "https://i.pravatar.cc/100?img=32" },
+          ].map((story, i) => (
+            <motion.div
+              key={story.name}
+              custom={i}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              className="card p-8 relative"
+            >
+              <div className="text-4xl text-[#6366f1]/20 absolute top-4 left-6">"</div>
+              <p className="text-sm text-[#94a3b8] mb-6 relative z-10 leading-relaxed">{story.quote}</p>
+              <div className="flex items-center gap-3">
+                <img src={story.img} alt={story.name} className="w-10 h-10 rounded-full" />
+                <div>
+                  <p className="text-sm font-semibold">{story.name}</p>
+                  <p className="text-xs text-[#64748b]">{story.role}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
       {/* Why Join */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <motion.div
